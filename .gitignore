@@ -1,0 +1,16 @@
+# npm 디버그 기록
+npm-debug.log*
+
+# 모든 LOG 파일 
+*.log
+
+# 프로젝트 의존성
+node_modules
+
+# 임시 파일
+*.tmp
+*~
+
+# 자동으로 생성되는 ES5파일
+public/dist
+dist
