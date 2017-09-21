@@ -14,3 +14,7 @@ node_modules
 # 자동으로 생성되는 ES5파일
 public/dist
 dist
+
+# macOS 폴더 속성
+.DS_Store
+
