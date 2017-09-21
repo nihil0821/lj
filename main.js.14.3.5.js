@@ -79,35 +79,3 @@ function addTimeout(fn, timeout) {
     }
 }
 
-// Q 라이브러리에 있는 것을 비슷하게 구현
-function nfcall(f, ...args) {
-    return new Promise(function(resolve, reject) {
-        f.call(null, ...args, function(err, ...args) {
-            if(err) return reject(err);
-            resolve(args.length < 2 ? args[0] : args);
-        });
-    });
-}
-
-// setTimeout은 오류 우선 콜백 패턴을 따르지 않기 때문에
-// 비슷한 기능을 하며 패턴을 따르는 함수 구현
-function ptimeout(delay) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(resolve, delay);
-    });
-}
-
-// 제너레이터 실행기
-function grun(g) {
-    const it = g();
-    (function iterate(val) {
-        const x = it.next(val);
-        if(!x.done) {
-            if(x.value instanceof Promise) {
-                x.value.then(iterate).catch(err => it.throw(err));
-            } else {
-                setTimeout(iterate, 0, x.value);
-            }
-        }
-    })();
-}
